@@ -1,0 +1,12 @@
+<h3>selected Article</h3>
+<p>
+  Title: <%= @article.title %>
+</p>
+<p>
+  Description: <%= @article.description %><br/>
+  <small>
+     created by: <%= @article.user.name if @article.user %><br/>
+    created at: <%= time_ago_in_words(@article.created_at) %><br/>
+    update at: <%= time_ago_in_words(@article.updated_at) %> 
+  </small>
+</p>  
