@@ -10,3 +10,5 @@
     update at: <%= time_ago_in_words(@article.updated_at) %> 
   </small>
 </p>  
+<p><%= link_to "show all articles", articles_path %>|
+<%= link_to "new article", new_article_path %></p>
