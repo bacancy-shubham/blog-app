@@ -38,8 +38,8 @@ class ArticlesController < ApplicationController
 
   def update
       if @article.update(param_article)
-        flash[:notice] = "artcle was successfully updated"
-        redirect_to article_path(@artcle)
+        flash[:notice] = "article was successfully updated"
+        redirect_to article_path
       else
         render 'edit'
       end
@@ -54,7 +54,7 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id])
   end
   def param_article
-      params.require(:article).permit(:title,:description)
+      params.require(:article).permit(:title,:description,:category_id, files: [])
   end
   
 end

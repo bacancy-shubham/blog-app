@@ -4,11 +4,31 @@
 </p>
 <p>
   Description: <%= @article.description %><br/>
+</p>
+<p>
+  Files: 
+  <% @article.files.each do |file| %>
+  <!-- <%= link_to file.filename, file, target: :blank %> -->
+    <% if @article.files.present? %>
+      <div style="width:400px; hiegth:auto" >
+        <%= image_tag(file, style:"width:100%") %>
+      </div>
+    <% else %>
+      <h3> Image is not uploaded </h3>
+    <% end %>
+  <%end%>
+</p>   
+<p> 
+  Tag: <%= @article.category.name if  @article.category %><br/>
   <small>
      created by: <%= @article.user.name if @article.user %><br/>
-    created at: <%= time_ago_in_words(@article.created_at) %><br/>
-    update at: <%= time_ago_in_words(@article.updated_at) %> 
+    created at: <%= time_ago_in_words(@article.created_at) %> ago<br/>
+    update at: <%= time_ago_in_words(@article.updated_at) %> ago
   </small>
-</p>  
-<p><%= link_to "show all articles", articles_path %>|
-<%= link_to "new article", new_article_path %></p>
+</p>
+<p><%= link_to "show all articles", articles_path %>
+<% if current_user && (current_user == @article.user || current_user.role == "admin") %>
+ |<%= link_to "new article", new_article_path %>
+ |<%= link_to "edit article", edit_article_path(@article) %>
+<% end %>
+</p>

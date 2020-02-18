@@ -3,4 +3,6 @@
 <div class= " center jumbotron">
   <h1>BLOG</h1>
 <%= link_to "show all articles", articles_path %>
-<%= link_to "new article", new_article_path %>
+<% if current_user %>
+|<%= link_to "new article", new_article_path %>
+<% end %>

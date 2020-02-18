@@ -1,22 +1,2 @@
-<h3>Article edit</h3>
-<% if @article.errors.any? %>
-  <h3> the <%= @article.errors.count %>following errors prevented the article from getting created</h3>
-  <ul>
-    <% @article.errors.full_messages.each do |msg| %>
-      <li> <%= msg %> </li>
-    <% end %>
-  </ul>
-<% end %>
-<%= form_with model:@article ,local: true do |f| %>
- <p>
-  <%= f.label :title %><br/>
-  <%= f.text_field :title %>   
- </p>
- <p>
-  <%= f.label :description %><br/>
-  <%= f.text_area :description %>
- </p>
- <p>
-  <%= f.submit %>
- </p>
-<% end %>
+<h1>Article edit</h1>
+<%= render 'form' %>

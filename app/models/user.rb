@@ -3,8 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
-  has_many :article
-  has_many :catogery, through: :user_catogery
+  has_many :articles
+  has_many :user_categories
+  has_many :categories, through: :user_categories
   enum gender: [:male, :female]
   enum role: [:admin, :user]
+
 end
