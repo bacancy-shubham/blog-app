@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
   has_many :articles
+  has_many :article_comments
   has_many :user_categories
   has_many :categories, through: :user_categories
   enum gender: [:male, :female]

@@ -16,14 +16,19 @@
   </div>
   <div class="field">
     <b>Gender</b><br />
-    <%= f.radio_button :gender, 'male' %> male<br />
-    <%= f.radio_button :gender, 'female' %> female<br />
+    <%= f.radio_button :gender, 'male',id: 'male' %> 
+    <label for="male">male</label> <br />
+    <%= f.radio_button :gender, 'female',id:'female' %> 
+    <label for="female">female</label> <br />
   </div>
    <div class="field">
     <b>Role</b><br />
-    <%= f.radio_button :role, 'admin' %> admin<br />
-    <%= f.radio_button :role, 'user' %> user<br />
+    <%= f.radio_button :role, 'admin',id: 'admin' %>
+    <label for="admin">admin</label> <br />
+    <%= f.radio_button :role, 'user',id: 'user' %> 
+    <label for="user">user</label><br />
   </div>
+  
   
    <div class="field">
     <b>topics of your interest</b><br />

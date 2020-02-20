@@ -1,0 +1,4 @@
+<% object.each do |comments| %>
+  Comment:<%= comments.comment %><br/>
+  <small>comment by:<%= User.find(comments.user_id).name %></small><br/>
+<% end %>

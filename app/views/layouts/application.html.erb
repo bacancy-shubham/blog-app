@@ -19,6 +19,7 @@
       <p>Current User: <%= current_user.name %></p>
       <%= link_to "log out", destroy_user_session_path, method: "delete" %>
       <%= link_to "edit user", edit_user_registration_path %> 
+      <p>User interest:<%= Category.find(UserCategory.find(current_user.id).id).name %></p>
     <% end %>
     <%= yield %>
   </body>

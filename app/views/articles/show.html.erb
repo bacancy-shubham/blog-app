@@ -1,3 +1,4 @@
+
 <h3>selected Article</h3>
 <p>
   Title: <%= @article.title %>
@@ -24,7 +25,14 @@
      created by: <%= @article.user.name if @article.user %><br/>
     created at: <%= time_ago_in_words(@article.created_at) %> ago<br/>
     update at: <%= time_ago_in_words(@article.updated_at) %> ago
-  </small>
+  </small><br/>
+  <%= render :partial => 'comments/comment', locals: {object: @comments} %>   
+   <% if current_user %>
+      <h2> Add Comments here </h2>
+      <%= render 'comments/form' %>
+    <% else %>
+      <h3> Please Sign in for add comments </h3>
+    <% end %>
 </p>
 <p><%= link_to "show all articles", articles_path %>
 <% if current_user && (current_user == @article.user || current_user.role == "admin") %>

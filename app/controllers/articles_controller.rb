@@ -5,12 +5,12 @@ class ArticlesController < ApplicationController
   end
 
   def new
-      @article = current_user.article.build
+      @article = current_user.articles.build
       # @article = Article.create
   end
 
   def create 
-      @article = current_user.article.build(param_article)
+      @article = current_user.articles.build(param_article)
       # @article = Article.create(param_article)
       if @article.save
          flash[:notice] = "Article was sucessfully created"
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-
+    @comments = @article.article_comments
   end
 
   def destroy
