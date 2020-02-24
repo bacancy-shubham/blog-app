@@ -1,4 +1,8 @@
 <% object.each do |comments| %>
   Comment:<%= comments.comment %><br/>
-  <small>comment by:<%= User.find(comments.user_id).name %></small><br/>
+  <small>comment by:<%= User.find(comments.user_id).name %></small>
+  <% if current_user == comments.user || current_user.role == 'admin' %>
+  <td><%= link_to "delete", article_comment_path(comments.article,comments), method: :delete, data: {confirm: "are you sure?"}  %></td>
+  <% end %>
+  <br/>
 <% end %>
