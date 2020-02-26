@@ -4,4 +4,7 @@ class Article < ApplicationRecord
   belongs_to :category
   has_many :article_comments
   has_many_attached :files
+
+  scope :search,->(s){Article.joins(:category).where("title LIKE ? OR description LIKE ? OR name LIKE ? ","%#{s}%","%#{s}%","%#{s}%") }
+  
 end

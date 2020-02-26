@@ -1,21 +1,37 @@
 <h1>List All Articles</h1>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Tag</th>
-  </tr>
-  <% @articles.each do |article| %>
-  <tr>
-    <td><%= article.title %></td>
-    <td><%= article.description %></td>
-    <td><%= article.category.name if article.category %></td>
-    <td><%= link_to "show", article_path(article)%></td>
-    <% if  current_user && (current_user == article.user || current_user.role == "admin" ) %>
-      <td><%= link_to "edit", edit_article_path(article)  %></td>
-      <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}  %></td>
+  <table cellpadding="12">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th></th>
+      <th>Tag</th>
+    </tr>
+    <%= form_tag(articles_path, method: "get", remote: true) do %>
+        <%= text_field_tag :query, params[:query] %>
+        <%= submit_tag "search" %>
     <% end %>
-  </tr>
-  <% end %>
-</table>
-<p><%= link_to "new article", new_article_path %></p>
+  </table>
+    <div id="blogpost_table">
+    <table cellpadding="10">
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.title %></td>
+          <td><%= article.description %></td>
+          <td><%= article.category.name if article.category %></td>
+          <td><%= link_to "show", article_path(article)%></td>
+            <% if  current_user && (current_user == article.user || current_user.role == "admin" ) %>
+              <td><%= link_to "edit", edit_article_path(article)  %></td>
+              <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}  %></td>
+            <% end %>
+        </tr>
+      <% end %>
+    </table>
+    </div>
+  <div id="search-results">
+
+</div>
+  <p><%= link_to "new article", new_article_path if current_user %>|
+  <%= link_to 'Back', :back %>|
+  <%= link_to 'home', home_articles_path %>
+  </p>
+

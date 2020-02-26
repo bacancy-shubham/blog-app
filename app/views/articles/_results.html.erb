@@ -1,0 +1,20 @@
+<table cellpadding='10'>
+  <% if @articles.length == 0 %>
+  <tr>
+    <td>no record found</td>
+  </tr>
+  <% else %>
+    <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.description %></td>
+      <td><%= article.category.name if article.category %></td>
+      <td><%= link_to "show", article_path(article)%></td>
+      <% if  current_user && (current_user == article.user || current_user.role == "admin" ) %>
+        <td><%= link_to "edit", edit_article_path(article)  %></td>
+        <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}  %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  <% end %>
+</table>

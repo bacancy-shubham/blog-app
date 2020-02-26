@@ -38,5 +38,6 @@
 <% if current_user && (current_user == @article.user || current_user.role == "admin") %>
  |<%= link_to "new article", new_article_path %>
  |<%= link_to "edit article", edit_article_path(@article) %>
+ |<%= link_to 'Back', :back %>
 <% end %>
 </p>

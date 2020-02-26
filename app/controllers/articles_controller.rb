@@ -1,7 +1,17 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only:[:show, :destroy, :edit, :update]
   def index
-      @articles = Article.all
+      if params[:query].present?
+        @articles = Article.search(params[:query])
+       
+          respond_to do |format|
+            format.js
+          end
+        
+        
+      else
+        @articles = Article.all
+      end    
   end
 
   def new
