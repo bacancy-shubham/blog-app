@@ -1,20 +1,35 @@
-<table cellpadding='10'>
-  <% if @articles.length == 0 %>
-  <tr>
-    <td>no record found</td>
-  </tr>
-  <% else %>
-    <% @articles.each do |article| %>
+<table class="table">
+  <thead class="thead-dark">
+    <% if @articles.length == 0 %>
     <tr>
-      <td><%= article.title %></td>
-      <td><%= article.description %></td>
-      <td><%= article.category.name if article.category %></td>
-      <td><%= link_to "show", article_path(article)%></td>
-      <% if  current_user && (current_user == article.user || current_user.role == "admin" ) %>
-        <td><%= link_to "edit", edit_article_path(article)  %></td>
-        <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}  %></td>
-      <% end %>
+      <td>no record found</td>
     </tr>
+    <% else %>
+       <tr>
+           <th>Title</th>
+           <th>Description</th>
+           <th>Tag</th>
+           <th></th>
+           <th></th>
+           <th></th>
+          </tr>
+      <% @articles.each do |article| %>
+        <% if article.status == 'accept'%>
+          <tr>
+            <td><%= article.title %></td>
+            <td><%= article.description %></td>
+            <td><%= article.category.name if article.category %></td>
+            <td><%= link_to "show", article_path(article), class: "btn btn-primary  btn-sm"%></td>
+            <% if  current_user && (current_user == article.user || current_user.role == "admin" ) %>
+              <td><%= link_to "edit", edit_article_path(article), class: "btn btn-primary  btn-sm"  %></td>
+              <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}, class: "btn btn-danger  btn-sm"  %></td>
+            <% else %>
+              <td></td>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
     <% end %>
-  <% end %>
+  </thead>  
 </table>

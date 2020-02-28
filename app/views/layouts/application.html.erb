@@ -4,24 +4,24 @@
     <title>BlogApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
+    <%= stylesheet_pack_tag 'custome', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> %>
   </head>
-
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p> 
-    <% if !current_user %>
-    <%= link_to "sign in", new_user_session_path %>
-    <% end %>
-    <% if current_user %>
-      <p>Current User: <%= current_user.name %></p>
-      <%= link_to "log out", destroy_user_session_path, method: "delete" %>
-      <%= link_to "edit user", edit_user_registration_path %> 
-      <%# <p>User interest:<%= Category.find(UserCategory.find(current_user.id).id).name %></p>
-    <% end %>
-    <%= yield %>
+      <% if !current_user %>
+      <%= link_to "sign in", new_user_session_path %>
+      <% end %>
+      <% if current_user %>
+        <p>Current User: <%= current_user.name %></p>
+        <%= link_to "log out", destroy_user_session_path, method: "delete", class: "btn btn-primary btn-lg" %>
+        <%= link_to "edit user", edit_user_registration_path, class: "btn btn-primary btn-lg" %> 
+        <%# <p>User interest:<%= Category.find(UserCategory.find(current_user.id).id).name %></p>
+      <% end %>
+      <h3 class="notice"><%= notice %></h3>
+      <h3 class="alert"><%= alert %></h3> 
+      <%= yield %>
   </body>
 </html>

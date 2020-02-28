@@ -1,8 +1,7 @@
-
+<div class= "center jumbotron">
 <h1>This is Home Page</h1>
-<div class= " center jumbotron">
-  <h1>BLOG</h1>
-<%= link_to "show all articles", articles_path %>
+  <h1> Of BLOG</h1>
+<%= link_to "show all articles", articles_path, class: "btn btn-primary btn-lg" %>
 <% if current_user %>
-|<%= link_to "new article", new_article_path %>
+<%= link_to "new article", new_article_path, class: "btn btn-primary btn-lg" %>
 <% end %>

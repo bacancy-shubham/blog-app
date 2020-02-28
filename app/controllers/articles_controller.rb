@@ -2,15 +2,13 @@ class ArticlesController < ApplicationController
   before_action :set_article, only:[:show, :destroy, :edit, :update]
   def index
       if params[:query].present?
-        @articles = Article.search(params[:query])
-       
+        @articles = Article.search(params[:query]).where("status = ?","accept")
           respond_to do |format|
             format.js
           end
-        
-        
       else
         @articles = Article.all
+        @rejected_articles = Article.where("articles.user_id = ? AND articles.status = ?",current_user,"reject" )
       end    
   end
 
@@ -20,15 +18,24 @@ class ArticlesController < ApplicationController
   end
 
   def create 
-      @article = current_user.articles.build(param_article)
-      # @article = Article.create(param_article)
-      if @article.save
-         flash[:notice] = "Article was sucessfully created"
-         redirect_to article_path(@article)
+    if current_user.role == 'admin'
+      @article = current_user.articles.build(param_article.merge(status: "accept"))
+    else
+      @article = current_user.articles.build(param_article.merge(status: "pending"))
+    end
+        # @article = Article.create(param_article)
+    if @article.save
+      if current_user.role == 'admin'
+        flash[:notice] = "Article was successfully created"
+        redirect_to article_path(@article)
       else
-        render 'new'
-        flash[:notice] = "not created"
+        flash[:notice] = "Article is under observation"
+         redirect_to articles_path
       end
+    else      
+      render 'new'
+      flash[:notice] = "Article was not created"
+    end
 
   end
 
@@ -59,12 +66,31 @@ class ArticlesController < ApplicationController
       
   end
 
+  def article_request
+    @articles = Article.all.where("status = ?","pending")
+  end
+
+  def article_accept_request
+      @article = Article.find(params[:article_id])
+      @article.update(status: "accept")
+      flash[:notice] = "article was  accepted"
+       redirect_to  request_articles_path
+
+  end
+
+  def article_reject_request
+      @article = Article.find(params[:article_id])
+      @article.update(status: "reject")
+      flash[:notice] = "article was rejected"
+      redirect_to  request_articles_path
+  end
+
   private
   def set_article
       @article = Article.find(params[:id])
   end
   def param_article
-      params.require(:article).permit(:title,:description,:category_id, files: [])
+      params.require(:article).permit(:title, :description, :category_id, files: [])
   end
   
 end
