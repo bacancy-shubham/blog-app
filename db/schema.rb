@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_085204) do
+ActiveRecord::Schema.define(version: 2020_03_04_105939) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(version: 2020_02_27_085204) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "likeable_type", null: false
+    t.integer "likeable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "article_id"
+    t.index ["article_id"], name: "index_likes_on_article_id"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "user_categories", force: :cascade do |t|
     t.integer "user_id"
     t.integer "category_id", null: false
@@ -95,5 +107,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_085204) do
   add_foreign_key "article_comments", "users"
   add_foreign_key "articles", "categories"
   add_foreign_key "articles", "users"
+  add_foreign_key "likes", "articles"
+  add_foreign_key "likes", "users"
   add_foreign_key "user_categories", "categories"
 end

@@ -1,0 +1,28 @@
+<h1>your notification</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>User Name</th>
+      <th>Article Title</th>
+      <th>Notification Type</th>
+      <th>Time</th>
+    </tr>
+      <% @likes.each do |like| %>
+        <tr>
+            <td><%= like.user.name %></td>
+            <td><%= like.article.title %></td>
+            <td>like <%= like.likeable_type %></td>
+            <td><%= like.created_at %></td>
+        </tr>
+      <% end %>
+      <% @comments.each do |comment|%>
+      <tr>
+        <td><%=comment.user.name %></td>
+        <td><%=comment.article.title %></td>
+        <td>comment</td>
+        <td><%= comment.created_at %></td>
+
+      <% end %>
+  </thead>     
+</table>
+<%= link_to 'Back', :back, class: "btn btn-primary btn-lg" %>

@@ -9,5 +9,7 @@ Rails.application.routes.draw do
       resources :comments
       get 'home', on: :collection, action: :home
    end 
+   resources :likes, only: [:create, :destroy]
+   get 'notification' , to: 'articles#notification'
    root to: "articles#home"
 end

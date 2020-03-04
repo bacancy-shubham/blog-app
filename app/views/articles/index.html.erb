@@ -2,6 +2,9 @@
        <h3><%=link_to 'accept_article_request', request_articles_path, class: "btn btn-primary btn-lg" %>
        (pending request is <%= Article.where(status:'pending').count %>) </h3>
   <% end %>
+  <% if current_user %>
+    <h3><%=link_to 'notification', notification_path, class: "btn btn-primary btn-lg" %>
+  <% end %>
   <% if current_user and @rejected_articles.count != 0  and current_user.role == 'user' %>
     <h1>List Of All Rejected Articles</h1>
           <table class="table">
@@ -11,12 +14,14 @@
                 <th>Description</th>
                 <th>Tag</th>
                 <th></th>
+                <th></th>
               </tr>
                 <% @rejected_articles.each do |article| %> 
                   <tr> <td><%= article.title %></td>
                     <td><%= article.description %></td>
                     <td><%= article.category.name if article.category %></td>
                     <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}, class: "btn btn-danger  btn-sm"  %></td>
+                    <td><%= link_to "edit", edit_article_path(article), class: "btn btn-primary  btn-sm"  %></td>
                   </tr>
                 <% end %>
             </thead>
@@ -43,6 +48,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
           <% @articles.each do |article| %>
             <tr>
@@ -58,6 +64,15 @@
                     <td></td>
                     <td></td>
                   <% end %>
+                    <% if current_user %>
+                      <td>
+                        <% if is_liked?(article).nil? %>
+                          <%= link_to "like", likes_path(article_id: article.id, type: 'Article'),method: :post, class: "btn btn-primary  btn-sm" %>like count <%= article.likes.count %>
+                        <% else%>
+                          <%= link_to "dislike", like_path(article.likes.find_by(user: current_user), type: 'Article'),method: :delete, class: "btn btn-danger  btn-sm" %>like count <%= article.likes.count %>
+                        <% end %>
+                      </td>
+                    <% end %>
               <% end %>
             </tr>
           <% end %>

@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-   before_action :set_article
+   before_action :set_article, :authenticate_user!
+
   def create
     @comments = @article.article_comments.new(comment_param)
     @comments.user = current_user

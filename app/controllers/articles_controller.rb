@@ -1,15 +1,18 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only:[:show, :destroy, :edit, :update]
+  before_action  :set_article, only:[:show, :destroy, :edit, :update]
+  before_action :authenticate_user!, except: [:index, :home, :show]
   def index
       if params[:query].present?
         @articles = Article.search(params[:query]).where("status = ?","accept")
           respond_to do |format|
             format.js
           end
-      else
-        @articles = Article.all
+      else 
+                
+         @articles = Article.all        
+        # @articles = Article.joins('LEFT OUTER JOIN "user_categories" ON "user_categories"."id" = "articles"."id"').where("user_categories.user_id = ?", current_user.id).order("user_categories.category_id ASC") 
         @rejected_articles = Article.where("articles.user_id = ? AND articles.status = ?",current_user,"reject" )
-      end    
+      end
   end
 
   def new
@@ -50,7 +53,9 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-
+     if @article.status == 'reject'      
+         @article.update(status: 'pending')
+     end
   end
 
   def update
@@ -83,6 +88,11 @@ class ArticlesController < ApplicationController
       @article.update(status: "reject")
       flash[:notice] = "article was rejected"
       redirect_to  request_articles_path
+  end
+
+  def notification
+      @likes = Like.joins(:article).all.where("articles.user_id = ?", current_user).order("likes.created_at DESC")
+      @comments = ArticleComment.joins(:article).all.where("articles.user_id = ?", current_user).order("article_comments.created_at DESC") 
   end
 
   private

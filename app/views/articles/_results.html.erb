@@ -12,6 +12,7 @@
            <th></th>
            <th></th>
            <th></th>
+           <th></th>
           </tr>
       <% @articles.each do |article| %>
         <% if article.status == 'accept'%>
@@ -27,6 +28,15 @@
               <td></td>
               <td></td>
             <% end %>
+             <% if current_user %>
+                      <td>
+                        <% if is_liked?(article).nil? %>
+                          <%= link_to "like", likes_path(article_id: article.id, type: 'Article'),method: :post, class: "btn btn-primary  btn-sm" %>like count <%= article.likes.count %>
+                        <% else%>
+                          <%= link_to "dislike", like_path(article.likes.find_by(user: current_user), type: 'Article'),method: :delete, class: "btn btn-danger  btn-sm" %>like count <%= article.likes.count %>
+                        <% end %>
+                      </td>
+                    <% end %>
           </tr>
         <% end %>
       <% end %>

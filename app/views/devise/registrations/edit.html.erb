@@ -30,8 +30,14 @@
   </div>
   <div class="field">
     <b>topics of your interest</b><br />
-    <%= f.collection_select :id, Category.all,:id,:name, include_blank: false %>
-  </div>
+    <%# Category.all.each do |category| %>
+    <%= collection_check_boxes :user, :category_ids, Category.all, :id, :name, include_hidden: false do |category| %>
+    <%#= category.name %>
+      <%=category.label %>
+      <%=category.check_box %>
+    <% end %>
+    <%# end %>
+  </div>  
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

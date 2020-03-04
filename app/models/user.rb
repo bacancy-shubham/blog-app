@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :article_comments
   has_many :user_categories
   has_many :categories, through: :user_categories
+  has_many :likes, dependent: :destroy
   enum gender: [:male, :female]
   enum role: [:admin, :user]
 
