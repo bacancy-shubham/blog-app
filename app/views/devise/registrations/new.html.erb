@@ -1,43 +1,50 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <!--<%=render "devise/shared/error_messages", resource: resource %> -->
    <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><br/>
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <%= resource.errors[:name].first %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %><br/>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= resource.errors[:email].first %>
+
   </div>
    <div class="field">
-    <%= f.label :number %><br />
+    <%= f.label :number %><br/>
     <%= f.number_field :number, autofocus: true, autocomplete: "number" %>
+    <%= resource.errors[:number].first %>
+
   </div>
   <div class="field">
-    <b>Gender</b><br />
+    <b>Gender</b><br/>
     <%= f.radio_button :gender, 'male',id: 'male' %> 
-    <label for="male">male</label> <br />
+    <label for="male">male</label> <br/>
     <%= f.radio_button :gender, 'female',id:'female' %> 
-    <label for="female">female</label> <br />
+    <label for="female">female</label>
+    <%= resource.errors[:gender].first %>
   </div>
    <div class="field">
     <b>Role</b><br />
     <%= f.radio_button :role, 'admin',id: 'admin' %>
-    <label for="admin">admin</label> <br />
+    <label for="admin">admin</label> <br/>
     <%= f.radio_button :role, 'user',id: 'user' %> 
-    <label for="user">user</label><br />
+    <label for="user">user</label>
+    <%= resource.errors[:role].first %>
   </div>
-  
-  
+
    <div class="field">
-    <b>topics of your interest</b><br />
+    <b>topics of your interest</b><br/>
     <%# Category.all.each do |category| %>
     <%= collection_check_boxes :user, :category_ids, Category.all, :id, :name, include_hidden: false do |category| %>
     <%#= category.name %>
       <%= category.label %>
       <%= category.check_box %>
     <% end %>
+    <%= resource.errors[:category_ids].first %>
     <%# end %>
   </div>  
   <div class="field">
@@ -46,16 +53,17 @@
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= resource.errors[:password].first %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= resource.errors[:password_confirmation].first %>
   </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
 <%= render "devise/shared/links" %>

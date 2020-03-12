@@ -6,6 +6,6 @@ class Article < ApplicationRecord
   has_many_attached :files
   has_many :likes, as: :likeable, dependent: :destroy
 
-  scope :search,->(s){Article.joins(:category).where("title LIKE ? OR description LIKE ? OR name LIKE ? ","%#{s}%","%#{s}%","%#{s}%") }
+  scope :search, ->(s){Article.joins(:category).where("title LIKE ? OR description LIKE ? OR name LIKE ? ","%#{s}%","%#{s}%","%#{s}%") }
   
 end

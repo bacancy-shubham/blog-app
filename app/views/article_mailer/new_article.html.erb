@@ -1,0 +1,12 @@
+<p>
+   Your article "<%= @article.title %>" request is accepted by <%= @adminname %>
+</p>
+
+<blockquote>
+    <%= @article.description%>
+</blockquote>
+
+<p>
+  To show your article, please visit the item page at:
+  <%= link_to 'article', articles_url %>
+</p>

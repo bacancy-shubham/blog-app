@@ -1,3 +1,4 @@
+
   <% if current_user and current_user.role == 'admin'%>
        <h3><%=link_to 'accept_article_request', request_articles_path, class: "btn btn-primary btn-lg" %>
        (pending request is <%= Article.where(status:'pending').count %>) </h3>
@@ -78,10 +79,14 @@
           <% end %>
        </thead>
       </table>
+       <div class = "centerp">
+        <%= will_paginate @articles, renderer: BootstrapPagination::Rails %>
+      </div>  
     </div>
   <div id="search-results">
 
   </div>
+  
   <p><%= link_to "new article", new_article_path,class: "btn btn-primary btn-lg" if current_user %>
   <%= link_to 'Back', :back, class: "btn btn-primary btn-lg" %>
   <%= link_to 'home', home_articles_path, class: "btn btn-primary btn-lg" %>

@@ -1,25 +1,29 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <!--<%=render "devise/shared/error_messages", resource: resource %> -->
    <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <%= resource.errors[:name].first %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= resource.errors[:email].first %>
   </div>
   <div class="field">
     <%= f.label :number %><br />
     <%= f.number_field :number, autofocus: true, autocomplete: "number" %>
+    <%= resource.errors[:number].first %>
   </div>
    <div class="field">
     <b>Gender</b><br />
     <%= f.radio_button :gender, 'male',id: 'male' %> 
     <label for="male">male</label> <br />
     <%= f.radio_button :gender, 'female',id:'female' %> 
-    <label for="female">female</label> <br />
+    <label for="female">female</label> <br/>
+    <%= resource.errors[:gender].first %>
   </div>
    <div class="field">
     <b>Role</b><br />
@@ -27,6 +31,7 @@
     <label for="admin">admin</label> <br />
     <%= f.radio_button :role, 'user',id: 'user' %> 
     <label for="user">user</label><br />
+    <%= resource.errors[:role].first %>
   </div>
   <div class="field">
     <b>topics of your interest</b><br />
@@ -36,6 +41,7 @@
       <%=category.label %>
       <%=category.check_box %>
     <% end %>
+    <%= resource.errors[:category_ids].first %>
     <%# end %>
   </div>  
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -45,6 +51,7 @@
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= resource.errors[:password].first %>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
@@ -54,11 +61,13 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= resource.errors[:password_confirmation].first %>
   </div>
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= resource.errors[:current_password].first %>    
   </div>
 
   <div class="actions">

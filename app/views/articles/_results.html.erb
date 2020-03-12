@@ -36,10 +36,16 @@
                           <%= link_to "dislike", like_path(article.likes.find_by(user: current_user), type: 'Article'),method: :delete, class: "btn btn-danger  btn-sm" %>like count <%= article.likes.count %>
                         <% end %>
                       </td>
-                    <% end %>
+              <% end %>
           </tr>
         <% end %>
       <% end %>
     <% end %>
   </thead>  
 </table>
+ <% if @rejected_articles %>
+   <div class = "centerp">
+        <%= will_paginate @articles, renderer: BootstrapPagination::Rails %>
+      </div>  
+ <% end %>
+
