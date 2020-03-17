@@ -5,8 +5,7 @@ class PaymentController < ApplicationController
   end
   
   def new
-    @payments = Payment.all
-        
+    @payments = Payment.all   
   end
   
   def create
@@ -23,10 +22,7 @@ class PaymentController < ApplicationController
       amount: @amount,
       description: 'Rails Stripe customer',
       currency: 'inr', 
-    })
-   
-   binding.pry
-   
+    })   
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path

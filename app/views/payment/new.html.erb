@@ -10,24 +10,30 @@
       <%= text_field(:payment, :amount) %>
     </label>
   </article>
- 
 
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="A month's subscription"
           data-amount=""
-          data-locale="auto"></script>
-           <table>
-  <h2>Payment History</h2>
-    <tr>
-      <td>Email</td>
-      <td>amount</td>
-    </tr>
-    <% @payments.each do |payment| %>
-    <tr>
-      <td><%= payment.email %></td>
-      <td><%= payment.amount %></td>
-    </tr>
-    <% end %>
-</table>
+          data-locale="auto">
+  </script>
+  <table>
+    <h2>Payment History</h2>
+      <tr>
+        <th>Email</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th></th>
+        <th>Time</th>
+      </tr>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><%= payment.email %></td>
+          <td><%= payment.amount %></td>
+          <td><%= payment.created_at.strftime("%b %d, %Y")%></td>
+          <td> </td>
+          <td><%= payment.created_at.strftime("%H:%M %P")%></td>
+        </tr>
+      <% end %>
+  </table>
 <% end %>

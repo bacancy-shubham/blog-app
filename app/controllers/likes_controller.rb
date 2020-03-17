@@ -7,9 +7,7 @@ class LikesController < ApplicationController
   def create
     if params[:type] == 'Comment'
       @article.likes.create(user_id: current_user.id, article_id: @article.article_id)
-
     else
-
       @article.likes.create(user_id: current_user.id, article_id: @article.id)
     end
     flash[:notice] = 'like is added'

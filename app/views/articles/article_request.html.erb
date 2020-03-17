@@ -1,28 +1,25 @@
-
-  <table class="table">
-    <thead class="thead-dark">
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Tag</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <% @articles.each do |article| %>
-          <tr>
-            <%# <% if article.status == 'pending' %> 
-              <td><%= article.title %></td>
-              <td><%= article.description %></td>
-              <td><%= article.category.name if article.category %></td>
-              <td><%= link_to "show", article_path(article), class: "btn btn-primary  btn-sm"%></td>
-              <td><%= link_to "accept", article_accept_request_path(article), class: "btn btn-success  btn-sm" %></td>
-              <td><%= link_to "reject", article_reject_request_path(article), class: "btn btn-danger  btn-sm" %></td>
-            <%# <% end %>
-          </tr>
-        <% end %>
-    </thead>
-  </table>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Tag</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= article.description %></td>
+        <td><%= article.category.name if article.category %></td>
+        <td><%= link_to "show", article_path(article), class: "btn btn-primary  btn-sm"%></td>
+        <td><%= link_to "accept", article_accept_request_path(article), class: "btn btn-success  btn-sm" %></td>
+        <td><%= link_to "reject", article_reject_request_path(article), class: "btn btn-danger  btn-sm" %></td>
+      </tr>
+    <% end %>
+  </thead>
+</table>
 <p>
   <%= link_to 'Back', :back, class: "btn btn-primary btn-lg" %>
   <%= link_to 'home', home_articles_path, class: "btn btn-primary btn-lg" %>

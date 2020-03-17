@@ -1,10 +1,11 @@
 
-<%= form_with(model: [ @article, @article.article_comments.build ], url: article_comments_path(@article), local: true) do |f| %>
-   <p>
-  <%= f.label :comment %><br/>
-  <%= f.text_area :comment,placeholder:"comment here #{current_user.name}" %>   
- </p>
- <P>
-  <%= f.submit  %>
-</p>
+<%= form_with(model: [ @article, @article.article_comments.build ], url: article_comments_path
+(@article), local: true) do |f| %>
+  <p>
+    <%= f.label :comment %><br/>
+    <%= f.text_area :comment,placeholder:"comment here #{current_user.name}" %>   
+  </p>
+   <P>
+    <%= f.submit  %>
+  </p>
 <% end %>

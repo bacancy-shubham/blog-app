@@ -34,8 +34,7 @@
   </thead>  
 </table>
  <% if @rejected_articles %>
-   <div class = "centerp">
-        <%= will_paginate @articles, renderer: BootstrapPagination::Rails %>
-      </div>  
+    <div class = "centerp">
+      <%= will_paginate @articles, renderer: BootstrapPagination::Rails %>
+    </div>  
  <% end %>
-

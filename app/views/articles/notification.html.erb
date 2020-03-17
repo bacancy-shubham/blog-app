@@ -3,12 +3,12 @@
   <thead class="thead-dark">
       <% @likes.each do |like| %>
         <tr>
-            <td><%= like.user.name %> is liked article <%= like.article.title %> of <%= like.likeable_type %>  </td>
+            <td><%= like.user.name %> is liked article <%= like.article.title %> of <%= like.likeable_type %> on <%= like.created_at.strftime("%b %d, %Y")%> at <%= like.created_at.strftime("%H:%M %P")%> </td>
         </tr>
       <% end %>
       <% @comments.each do |comment|%>
       <tr>
-        <td><%=comment.user.name %> is liked comment of article <%=comment.article.title %></td>
+        <td><%=comment.user.name %> is liked comment of article <%=comment.article.title %> on <%= comment.created_at.strftime("%b %d, %Y")%> at <%= comment.created_at.strftime("%H:%M %P")%></td>
       </tr>
       <% end %>
   </thead>     

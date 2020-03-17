@@ -10,8 +10,8 @@ require("@rails/activestorage").start()
 require("channels")
 require("chartkick")
 require("chart.js")
+// require("packs/ckeditor")
 //= require turbolinks
-// require("ckeditor/config.js")
 
 // document.addEventListener("turbolinks:load",() =>{
 //   $('[data-toggle="tooltip"]').tooltip()
