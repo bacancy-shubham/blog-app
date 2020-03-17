@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, :controllers => {registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords', confirmations: 'users/confirmations' }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
    resources :articles do
@@ -11,5 +12,6 @@ Rails.application.routes.draw do
    end 
    resources :likes, only: [:create, :destroy]
    get 'notification' , to: 'articles#notification'
+   resources :payment, only: [:create, :new]
    root to: "articles#home"
 end

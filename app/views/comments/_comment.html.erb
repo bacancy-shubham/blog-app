@@ -1,3 +1,4 @@
+
 <% object.each do |comment| %>
   <h3>Comment:<%= comment.comment %>
     <% if current_user && (current_user == comment.user || current_user.role == 'admin') %>
@@ -6,9 +7,10 @@
       <% if current_user %>
         <td>
            <% if is_liked?(comment).nil? %>
-              <%= link_to "like", likes_path(id: comment, type: 'Comment',article_id: @article),method: :post, class: "btn btn-primary  btn-sm" %>like count <%= comment.likes.count %>
+              <%= link_to "like", likes_path(id: comment, type: 'Comment',article_id: @article),
+              method: :post, class: "btn btn-primary  btn-sm" %>like count <%= comment.likes.count %>
            <% else%>
-              <%= link_to "dislike", like_path(is_liked?(comment), type: 'Comment', article_id: @article),method: :delete, class: "btn btn-danger  btn-sm" %>like count <%= comment.likes.count %></td>
+              <%= link_to "dislike", like_path(is_liked?(comment), type: 'Comment', article_id:    @article),method: :delete, class: "btn btn-danger  btn-sm" %>like count <%= comment.likes.count %></td>
            <% end %>
         </td>
       <% end %>

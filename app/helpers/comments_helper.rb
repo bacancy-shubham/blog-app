@@ -1,6 +1,7 @@
-module CommentsHelper
+# frozen_string_literal: true
 
-  def is_liked? comment    
+module CommentsHelper
+  def is_liked?(_comment)
     article_comments.likes.find_by(user: current_user)
   end
 end

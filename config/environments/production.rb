@@ -85,6 +85,9 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
+#for stripe payment
+config.stripe.secret_key = Rails.application.credentials.stripe[:production][:secret_key]
+config.stripe.publishable_key = Rails.application.credentials.stripe[:production][:publishable_key]
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

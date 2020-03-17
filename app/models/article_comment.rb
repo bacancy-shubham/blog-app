@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArticleComment < ApplicationRecord
   validates :comment, presence: true
   belongs_to :user

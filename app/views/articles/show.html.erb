@@ -4,9 +4,10 @@
   Title: <%= @article.title %>
 </p>
 <p>
-  Description: <%= @article.description %><br/>
+  Description: <%= raw @article.description %><br/>
 </p>
 <p>
+
   Files: 
   <% @article.files.each do |file| %>
   <!-- <%= link_to file.filename, file, target: :blank %> -->
@@ -26,6 +27,15 @@
     created at: <%= time_ago_in_words(@article.created_at) %> ago<br/>
     update at: <%= time_ago_in_words(@article.updated_at) %> ago
   </small><br/>
+   <% if current_user %>
+   <td>
+     <% if is_liked?(@article).nil? %>
+       <%= link_to "like", likes_path(article_id: @article.id, type: 'Article'),method: :post, class: "btn btn-primary  btn-sm" %>like count <%= @article.likes.count %>
+     <% else%>
+       <%= link_to "dislike", like_path(is_liked?(@article), article_id: @article.id, type: 'Article'),method: :delete, class: "btn btn-danger  btn-sm" %>like count <%= @article.likes.count %>
+     <% end %>
+   </td>
+ <% end %>
   <%= render :partial => 'comments/comment', locals: {object: @comments} %>   
    <% if current_user %>
       <h2> Add Comments here </h2>

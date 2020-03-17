@@ -1,3 +1,7 @@
 <h1>Article edit</h1>
+<% if  current_user && (current_user == @article.user || current_user.role == "admin" ) %>
 <%= render 'form' %>
 <%= link_to 'Back', :back, class: "btn btn-primary btn-lg" %>
+<% else%>
+<h3>you are not able to edit</h3>
+<% end %>
