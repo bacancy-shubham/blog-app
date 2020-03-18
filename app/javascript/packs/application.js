@@ -10,7 +10,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("chartkick")
 require("chart.js")
-// require("packs/ckeditor")
+require("ckeditor.min")
 //= require turbolinks
 
 // document.addEventListener("turbolinks:load",() =>{

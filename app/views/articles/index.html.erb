@@ -31,7 +31,7 @@
   <h3>no rejected article</h3>
 <% end %>
     <h1>List Of All Articles</h1>
-    <%= form_tag(articles_path, method: "get", remote: true,
+    <%= form_tag(articles_path, method: :get, remote: true,
          class:'form-inline md-form mr-auto mb-4') do %>
         <%= text_field_tag :query, params[:query] %>
         <button class="btn btn-dark" type="submit">Search</button>
