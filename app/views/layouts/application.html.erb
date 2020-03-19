@@ -7,10 +7,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'custome', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag Ckeditor.cdn_url %>
-
-   <!-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> -->
+    <%# <%= javascript_include_tag Ckeditor.cdn_url %>  
   </head>
   <body>
       <% if !current_user %>
@@ -24,6 +21,5 @@
       <h3 class="notice"><%= notice %></h3>
       <h3 class="alert"><%= alert %></h3> 
       <%= yield %>
-
   </body>
 </html>

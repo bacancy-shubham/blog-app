@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require 'ArticlesServices'
+require 'will_paginate/array'
+
 #article methods
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show destroy edit update]
@@ -9,18 +12,14 @@ class ArticlesController < ApplicationController
       respond_to do |format|
         format.js
       end
-    else
-      article1 = Article.all.order('category_id ASC')
-      article2 = Article.joins('LEFT OUTER JOIN "user_categories" ON "user_categories"."category_id"
-       = "articles"."category_id"').where('user_categories.user_id = ?', current_user).
-       order('user_categories.category_id ASC')
-      @articles = (article2 + article1).uniq
-      @articles = article1.paginate(per_page: 5, page: params[:page])
+    else  
+      articles = ArticlesServices.search(current_user)
+      @articles = articles.paginate(per_page: 5, page: params[:page])
       @rejected_articles = Article.where('articles.user_id = ? AND articles.status = ?',
        current_user, 'reject')
     end
 
-  end
+  end 
 
   def new
     @article = current_user.articles.build
@@ -28,11 +27,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = if current_user.role == 'admin'
-                 current_user.articles.build(param_article.merge(status: 'accept'))
-               else
-                 current_user.articles.build(param_article.merge(status: 'pending'))
-                end
+    @article = ArticlesServices.article_status(current_user, param_article)
     # @article = Article.create(param_article)
     if @article.save
       if current_user.role == 'admin'
