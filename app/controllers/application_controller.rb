@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :number, :gender, :role, category_ids: []])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :number, :gender, :role, category_ids: []])
   end
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:notice] = 'You are not authorized to perform this action!'
+    redirect_to articles_path
+    end
 end
