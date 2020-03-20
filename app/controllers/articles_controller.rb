@@ -18,7 +18,6 @@ class ArticlesController < ApplicationController
       @rejected_articles = Article.where('articles.user_id = ? AND articles.status = ?',
        current_user, 'reject')
     end
-
   end 
 
   def new
@@ -55,6 +54,7 @@ class ArticlesController < ApplicationController
 
   def edit
     @article.update(status: 'pending') if @article.status == 'reject'
+    authorize! :update, @article
   end
 
   def update

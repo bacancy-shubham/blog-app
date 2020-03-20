@@ -1,4 +1,4 @@
-<% if current_user and current_user.role == 'admin'%>
+<% if current_user and current_user.role == 'admin'%> 
      <h3><%=link_to 'accept_article_request', request_articles_path, class: "btn btn-primary btn-lg" %>
      (pending request is <%= Article.where(status:'pending').count %>) </h3>
 <% end %>
@@ -55,7 +55,7 @@
               <td><%= article.category.name if article.category %></td>
               <td><%= link_to "show", article_path(article), class: "btn btn-primary  btn-sm"%>
               </td>
-                <% if  current_user && (current_user == article.user || current_user.role == "admin" ) %>
+                <% if can? :update, article %>
                   <td><%= link_to "edit", edit_article_path(article), class: "btn btn-primary  btn-sm"  %></td>
                   <td><%= link_to "delete", article_path(article), method: :delete, data: {confirm: "are you sure?"}, class: "btn btn-danger  btn-sm"%></td>
                 <% else %>

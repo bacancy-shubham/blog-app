@@ -5,7 +5,8 @@ module ArticlesServices
     article2 = Article.joins('LEFT OUTER JOIN "user_categories" ON "user_categories"."category_id"
      = "articles"."category_id"').where('user_categories.user_id = ?', current_user).
      order('user_categories.category_id ASC')
-    return articles = (article2 + article1).uniq
+     #article = Article.eager_load(user: :user_categories).where('user_categories.user_id = ?', current_user).order('user_categories.category_id ASC')
+     return articles = (article2 + article1).uniq
   end
 
   def article_status(current_user, param_article)
